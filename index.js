@@ -23,10 +23,9 @@ req.on('data', chunk => {
 
     const isMaster = body?.ref === 'refs/heads/master';
     const directory = GITHUB_REPOSITORIES_TO_DIR[body?.repository?.full_name];
-
     if (isAllowed && isMaster && directory) {
-    try {
-        exec(`cd ${directory} && nodemon start`);
+        try {
+         exec(`cd ${directory} && npm stop && git pull && npm install && nodemon start`);
     } catch (error) {
         console.log(error);
     }
